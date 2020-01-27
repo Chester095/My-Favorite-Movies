@@ -43,4 +43,9 @@ public class Genre extends BaseObservable {
         this.genreName = genreName;
         notifyPropertyChanged(BR.genreName);
     }
+
+    @Override
+    public String toString() {
+        return this.genreName;
+    }
 }
