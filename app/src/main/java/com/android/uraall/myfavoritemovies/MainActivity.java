@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityClickHandlers clickHandlers;
     private Genre selectedGenre;
     private ArrayList<Genre> genreArrayList;
+    private ArrayList<Movie> movieArrayList;
+    private RecyclerView recyclerView;
+    private MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainActivityViewModel.getGenreMovies(2).observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
 
-                for (Movie movie : movies) {
-
-                    Log.d("MyTAG", movie.getMovieName());
-
-                }
-
-            }
-        });
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -139,10 +133,35 @@ public class MainActivity extends AppCompatActivity {
                     "\n name is " + selectedGenre.getGenreName();
 
             Toast.makeText(parent.getContext(), message, Toast.LENGTH_SHORT).show();
+
+            loadGenreMoviesInArrayList(selectedGenre.getId());
         }
 
     }
 
+    private void loadGenreMoviesInArrayList(int genreId) {
 
+        mainActivityViewModel.getGenreMovies(genreId).observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+
+                movieArrayList = (ArrayList<Movie>) movies;
+                loadRecyclerView();
+
+            }
+        });
+
+    }
+
+    private void loadRecyclerView() {
+
+        recyclerView = activityMainBinding.secondaryLayout.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        movieAdapter = new MovieAdapter();
+        movieAdapter.setMovieArrayList(movieArrayList);
+        recyclerView.setAdapter(movieAdapter);
+    }
 
 }
