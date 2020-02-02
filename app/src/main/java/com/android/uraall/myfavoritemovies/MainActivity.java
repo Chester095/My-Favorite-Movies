@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         movieAdapter = new MovieAdapter();
-        recyclerView.setAdapter(movieAdapter);
         movieAdapter.setMovieArrayList(movieArrayList);
+        recyclerView.setAdapter(movieAdapter);
 
         movieAdapter.setOnItemClickListener(new MovieAdapter.OnItemClickListener() {
             @Override
