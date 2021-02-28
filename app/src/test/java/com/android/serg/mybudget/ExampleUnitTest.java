@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies;
+package com.android.serg.mybudget;
 
 import org.junit.Test;
 

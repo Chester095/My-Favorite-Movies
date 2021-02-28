@@ -11,7 +11,7 @@
         
         <variable
             name="secondaryClickHandlers"
-            type="com.android.uraall.myfavoritemovies.MainActivity.MainActivityClickHandlers" />
+            type="com.android.serg.mybudget.MainActivity.MainActivityClickHandlers" />
 
     </data>
 

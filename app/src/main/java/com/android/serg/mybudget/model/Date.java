@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies.model;
+package com.android.serg.mybudget.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -8,8 +8,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "genres_table")
-public class Genre extends BaseObservable {
+@Entity(tableName = "date_table")
+public class Date extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -18,10 +18,10 @@ public class Genre extends BaseObservable {
     private String genreName;
 
     @Ignore
-    public Genre() {
+    public Date() {
     }
 
-    public Genre(int id, String genreName) {
+    public Date(int id, String genreName) {
         this.id = id;
         this.genreName = genreName;
     }

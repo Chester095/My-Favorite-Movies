@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies;
+package com.android.serg.mybudget;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.android.uraall.myfavoritemovies", appContext.getPackageName());
+        assertEquals("com.android.uraall.mybudget", appContext.getPackageName());
     }
 }

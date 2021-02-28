@@ -8,7 +8,7 @@
 
         <variable
             name="clickHandlers"
-            type="com.android.uraall.myfavoritemovies.MainActivity.MainActivityClickHandlers" />
+            type="com.android.serg.mybudget.MainActivity.MainActivityClickHandlers" />
 
         <variable
             name="spinnerAdapter"

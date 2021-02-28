@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies;
+package com.android.serg.mybudget;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.uraall.myfavoritemovies.databinding.ActivityAddEditBinding;
-import com.android.uraall.myfavoritemovies.model.Movie;
+import com.android.serg.mybudget.databinding.ActivityAddEditBinding;
+import com.android.serg.mybudget.model.Budget;
 
 public class AddEditActivity extends AppCompatActivity {
 
-    private Movie movie;
+    private Budget budget;
 
     public static final String MOVIE_ID = "movieId";
     public static final String MOVIE_NAME = "movieName";
@@ -27,22 +27,22 @@ public class AddEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit);
 
-        movie = new Movie();
+        budget = new Budget();
         activityAddEditBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_add_edit);
-        activityAddEditBinding.setMovie(movie);
+        activityAddEditBinding.setBudget(budget);
         addEditActivityClickHandlers = new AddEditActivityClickHandlers(this);
         activityAddEditBinding.setClickHandlers(addEditActivityClickHandlers);
 
         Intent intent = getIntent();
 
         if (intent.hasExtra(MOVIE_ID)) {
-            setTitle("Edit movie");
+            setTitle("Edit budget");
 
-            movie.setMovieName(intent.getStringExtra(MOVIE_NAME));
-            movie.setMovieDescription(intent.getStringExtra(MOVIE_DESCRIPTION));
+            budget.setMovieName(intent.getStringExtra(MOVIE_NAME));
+            budget.setMovieDescription(intent.getStringExtra(MOVIE_DESCRIPTION));
         } else {
-            setTitle("Add movie");
+            setTitle("Add budget");
         }
 
     }
@@ -57,15 +57,15 @@ public class AddEditActivity extends AppCompatActivity {
 
         public void onOkButtonClicked(View view) {
 
-            if (movie.getMovieName() == null) {
+            if (budget.getMovieName() == null) {
 
                 Toast.makeText(context, "Please input the mame", Toast.LENGTH_SHORT).show();
 
             } else {
 
                 Intent intent = new Intent();
-                intent.putExtra(MOVIE_NAME, movie.getMovieName());
-                intent.putExtra(MOVIE_DESCRIPTION, movie.getMovieDescription());
+                intent.putExtra(MOVIE_NAME, budget.getMovieName());
+                intent.putExtra(MOVIE_DESCRIPTION, budget.getMovieDescription());
                 setResult(RESULT_OK, intent);
                 finish();
 

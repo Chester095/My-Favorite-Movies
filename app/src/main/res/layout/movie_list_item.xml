@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.android.uraall.myfavoritemovies.model.Movie" />
+            name="budget"
+            type="com.android.serg.mybudget.model.Budget" />
 
     </data>
 
@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/nameTextView"
-                android:text="@{movie.movieName}"
+                android:text="@{budget.movieName}"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/descriptionTextView"
-                android:text="@{movie.movieDescription}"
+                android:text="@{budget.movieDescription}"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"

@@ -7,11 +7,11 @@
         
         <variable
             name="clickHandlers"
-            type="com.android.uraall.myfavoritemovies.AddEditActivity.AddEditActivityClickHandlers" />
+            type="com.android.serg.mybudget.AddEditActivity.AddEditActivityClickHandlers" />
 
         <variable
-            name="movie"
-            type="com.android.uraall.myfavoritemovies.model.Movie" />
+            name="budget"
+            type="com.android.serg.mybudget.model.Budget" />
 
     </data>
 
@@ -33,7 +33,7 @@
         <EditText
             android:id="@+id/movieNameEditText"
             android:hint="Name"
-            android:text="@={movie.movieName}"
+            android:text="@={budget.movieName}"
             android:layout_marginTop="16dp"
             android:textSize="24sp"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         <EditText
             android:id="@+id/movieDescriptionEditText"
             android:hint="Description"
-            android:text="@={movie.movieDescription}"
+            android:text="@={budget.movieDescription}"
             android:layout_marginTop="16dp"
             android:textSize="24sp"
             android:layout_width="match_parent"

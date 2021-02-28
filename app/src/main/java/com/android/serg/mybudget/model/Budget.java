@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies.model;
+package com.android.serg.mybudget.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -9,39 +9,39 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "movies_table", foreignKeys = @ForeignKey(entity = Genre.class,
-parentColumns = "id", childColumns = "genre_id", onDelete = ForeignKey.CASCADE))
-public class Movie extends BaseObservable {
+@Entity(tableName = "budget_table", foreignKeys = @ForeignKey(entity = Date.class,
+parentColumns = "id", childColumns = "date_id", onDelete = ForeignKey.CASCADE))
+public class Budget extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "movie_id")
-    private int movieId;
+    private int budgetId;
     @ColumnInfo(name = "movie_name")
     private String movieName;
     @ColumnInfo(name = "movie_description")
     private String movieDescription;
-    @ColumnInfo(name = "genre_id")
-    private int genreId;
+    @ColumnInfo(name = "date_id")
+    private int dateId;
 
     @Ignore
-    public Movie() {
+    public Budget() {
     }
 
-    public Movie(int movieId, String movieName, String movieDescription, int genreId) {
-        this.movieId = movieId;
+    public Budget(int budgetId, String movieName, String movieDescription, int dateId) {
+        this.budgetId = budgetId;
         this.movieName = movieName;
         this.movieDescription = movieDescription;
-        this.genreId = genreId;
+        this.dateId = dateId;
     }
 
     @Bindable
-    public int getMovieId() {
-        return movieId;
+    public int getBudgetId() {
+        return budgetId;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-        notifyPropertyChanged(BR.movieId);
+    public void setBudgetId(int budgetId) {
+        this.budgetId = budgetId;
+        notifyPropertyChanged(BR.budgetId);
     }
 
     @Bindable
@@ -65,12 +65,12 @@ public class Movie extends BaseObservable {
     }
 
     @Bindable
-    public int getGenreId() {
-        return genreId;
+    public int getDateId() {
+        return dateId;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-        notifyPropertyChanged(BR.genreId);
+    public void setDateId(int dateId) {
+        this.dateId = dateId;
+        notifyPropertyChanged(BR.dateId);
     }
 }

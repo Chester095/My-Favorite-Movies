@@ -1,14 +1,12 @@
-package com.android.uraall.myfavoritemovies;
+package com.android.serg.mybudget;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.uraall.myfavoritemovies.databinding.ActivityMainBinding;
-import com.android.uraall.myfavoritemovies.model.Genre;
-import com.android.uraall.myfavoritemovies.model.Movie;
-import com.android.uraall.myfavoritemovies.viewmodel.MainActivityViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.android.serg.mybudget.databinding.ActivityMainBinding;
+import com.android.serg.mybudget.model.Budget;
+import com.android.serg.mybudget.model.Date;
+import com.android.serg.mybudget.viewmodel.MainActivityViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mainActivityViewModel;
     private ActivityMainBinding activityMainBinding;
     private MainActivityClickHandlers clickHandlers;
-    private Genre selectedGenre;
-    private ArrayList<Genre> genreArrayList;
-    private ArrayList<Movie> movieArrayList;
+    private Date selectedDate;
+    private ArrayList<Date> dateArrayList;
+    private ArrayList<Budget> budgetArrayList;
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private int selectedMovieId;
@@ -64,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
         clickHandlers = new MainActivityClickHandlers();
         activityMainBinding.setClickHandlers(clickHandlers);
 
-        mainActivityViewModel.getGenres().observe(this, new Observer<List<Genre>>() {
+        mainActivityViewModel.getGenres().observe(this, new Observer<List<Date>>() {
             @Override
-            public void onChanged(List<Genre> genres) {
+            public void onChanged(List<Date> dates) {
 
-                genreArrayList = (ArrayList<Genre>) genres;
+                dateArrayList = (ArrayList<Date>) dates;
 
-                for (Genre genre : genres) {
+                for (Date date : dates) {
 
-                    Log.d("MyTAG", genre.getGenreName());
+                    Log.d("MyTAG", date.getGenreName());
 
                 }
 
@@ -95,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showInSpinner() {
 
-        ArrayAdapter<Genre> genreArrayAdapter = new ArrayAdapter<Genre>(this,
-                R.layout.spinner_item, genreArrayList);
+        ArrayAdapter<Date> genreArrayAdapter = new ArrayAdapter<Date>(this,
+                R.layout.spinner_item, dateArrayList);
         genreArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         activityMainBinding.setSpinnerAdapter(genreArrayAdapter);
 
@@ -137,25 +134,25 @@ public class MainActivity extends AppCompatActivity {
 
         public void onSelectedItem(AdapterView<?> parent, View view, int position, long id) {
 
-            selectedGenre = (Genre) parent.getItemAtPosition(position);
+            selectedDate = (Date) parent.getItemAtPosition(position);
 
-            String message = "id is " + selectedGenre.getId() +
-                    "\n name is " + selectedGenre.getGenreName();
+            String message = "id is " + selectedDate.getId() +
+                    "\n name is " + selectedDate.getGenreName();
 
 //            Toast.makeText(parent.getContext(), message, Toast.LENGTH_SHORT).show();
 
-            loadGenreMoviesInArrayList(selectedGenre.getId());
+            loadGenreMoviesInArrayList(selectedDate.getId());
         }
 
     }
 
     private void loadGenreMoviesInArrayList(int genreId) {
 
-        mainActivityViewModel.getGenreMovies(genreId).observe(this, new Observer<List<Movie>>() {
+        mainActivityViewModel.getGenreMovies(genreId).observe(this, new Observer<List<Budget>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(List<Budget> budgets) {
 
-                movieArrayList = (ArrayList<Movie>) movies;
+                budgetArrayList = (ArrayList<Budget>) budgets;
                 loadRecyclerView();
 
             }
@@ -170,18 +167,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         movieAdapter = new MovieAdapter();
-        movieAdapter.setMovieArrayList(movieArrayList);
+        movieAdapter.setBudgetArrayList(budgetArrayList);
         recyclerView.setAdapter(movieAdapter);
 
         movieAdapter.setOnItemClickListener(new MovieAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Movie movie) {
-                selectedMovieId = movie.getMovieId();
+            public void onItemClick(Budget budget) {
+                selectedMovieId = budget.getBudgetId();
                 Intent intent = new Intent(MainActivity.this,
                         AddEditActivity.class);
                 intent.putExtra(AddEditActivity.MOVIE_ID, selectedMovieId);
-                intent.putExtra(AddEditActivity.MOVIE_NAME, movie.getMovieName());
-                intent.putExtra(AddEditActivity.MOVIE_DESCRIPTION, movie.getMovieDescription());
+                intent.putExtra(AddEditActivity.MOVIE_NAME, budget.getMovieName());
+                intent.putExtra(AddEditActivity.MOVIE_DESCRIPTION, budget.getMovieDescription());
                 startActivityForResult(intent, EDIT_MOVIE_REQUEST_CODE);
             }
         });
@@ -199,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder,
                                  int direction) {
 
-                Movie movieToDelete = movieArrayList.get(viewHolder.getAdapterPosition());
-                mainActivityViewModel.deleteMovie(movieToDelete);
+                Budget budgetToDelete = budgetArrayList.get(viewHolder.getAdapterPosition());
+                mainActivityViewModel.deleteMovie(budgetToDelete);
 
             }
         }).attachToRecyclerView(recyclerView);
@@ -211,26 +208,26 @@ public class MainActivity extends AppCompatActivity {
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int selectedGenreId = selectedGenre.getId();
+        int selectedGenreId = selectedDate.getId();
 
         if (requestCode == ADD_MOVIE_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            Movie movie = new Movie();
-            movie.setGenreId(selectedGenreId);
-            movie.setMovieName(data.getStringExtra(AddEditActivity.MOVIE_NAME));
-            movie.setMovieDescription(data.getStringExtra(AddEditActivity.MOVIE_DESCRIPTION));
+            Budget budget = new Budget();
+            budget.setDateId(selectedGenreId);
+            budget.setMovieName(data.getStringExtra(AddEditActivity.MOVIE_NAME));
+            budget.setMovieDescription(data.getStringExtra(AddEditActivity.MOVIE_DESCRIPTION));
 
-            mainActivityViewModel.addNewMovie(movie);
+            mainActivityViewModel.addNewMovie(budget);
 
         } else if (requestCode == EDIT_MOVIE_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            Movie movie = new Movie();
-            movie.setMovieId(selectedMovieId);
-            movie.setGenreId(selectedGenreId);
-            movie.setMovieName(data.getStringExtra(AddEditActivity.MOVIE_NAME));
-            movie.setMovieDescription(data.getStringExtra(AddEditActivity.MOVIE_DESCRIPTION));
+            Budget budget = new Budget();
+            budget.setBudgetId(selectedMovieId);
+            budget.setDateId(selectedGenreId);
+            budget.setMovieName(data.getStringExtra(AddEditActivity.MOVIE_NAME));
+            budget.setMovieDescription(data.getStringExtra(AddEditActivity.MOVIE_DESCRIPTION));
 
-            mainActivityViewModel.updateMovie(movie);
+            mainActivityViewModel.updateMovie(budget);
 
         }
     }

@@ -1,4 +1,4 @@
-package com.android.uraall.myfavoritemovies;
+package com.android.serg.mybudget;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.uraall.myfavoritemovies.databinding.MovieListItemBinding;
-import com.android.uraall.myfavoritemovies.model.Movie;
+import com.android.serg.mybudget.databinding.MovieListItemBinding;
+import com.android.serg.mybudget.model.Budget;
 
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private OnItemClickListener onItemClickListener;
-    private ArrayList<Movie> movieArrayList = new ArrayList<>();
+    private ArrayList<Budget> budgetArrayList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -33,14 +33,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
-        Movie movie = movieArrayList.get(position);
-        holder.movieListItemBinding.setMovie(movie);
+        Budget budget = budgetArrayList.get(position);
+        holder.movieListItemBinding.setBudget(budget);
 
     }
 
     @Override
     public int getItemCount() {
-        return movieArrayList.size();
+        return budgetArrayList.size();
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder{
@@ -57,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     int position = getAdapterPosition();
 
                     if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(movieArrayList.get(position));
+                        onItemClickListener.onItemClick(budgetArrayList.get(position));
                     }
 
 
@@ -68,7 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public interface OnItemClickListener {
 
-        void onItemClick(Movie movie);
+        void onItemClick(Budget budget);
 
     }
 
@@ -76,8 +76,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setMovieArrayList(ArrayList<Movie> movieArrayList) {
-        this.movieArrayList = movieArrayList;
+    public void setBudgetArrayList(ArrayList<Budget> budgetArrayList) {
+        this.budgetArrayList = budgetArrayList;
         notifyDataSetChanged();
     }
 }
